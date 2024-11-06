@@ -2,23 +2,20 @@ import json as j
 import Logic
 import Convert
 
-filepath = open('inputpostman.json', 'r')
+jsonfilepath = 'C:\A\Atlas\Personal\Script\JsonToTable\inputpostman.json'
+with open(jsonfilepath, 'r') as file:
+    json = j.load(file)
 
-try:
-    json = j.load(filepath)
-    if json=={}: raise Exception("JSON is empty")
-except:
-    print("Give a valid JSON file")
+if json=={}: raise Exception("JSON is empty")
 
-try: 
-    parsedJSON = Logic.ParsePostman(filepath) 
-    print(parsedJSON)
-except Exception as error: 
-    raise Exception(f"Error while parsing JSON, {error}")
 
-try:
-    Convert.ToWord(parsedJSON)
-except Exception as error:
-    raise Exception(f"Errow while converting to excel, {error}")
+print("Entered Postman\n")
 
+parsedJSON = Logic.ParsePostman(json, jsonfilepath) 
+
+print("Parsed the Postman collection:\n", parsedJSON, '\n')
+
+Convert.ToWord(parsedJSON)
+
+print("Word Document Created")
 

@@ -1,3 +1,6 @@
 *.xlsx
 *.json
 *.pyc
+*.docx
+test.py
+test.ipynb
