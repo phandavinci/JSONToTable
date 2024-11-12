@@ -59,7 +59,7 @@ def ToExcel(parsedJSON):
 def ToWord(JSON):
     if os.path.exists('output.docx'): os.remove('output.docx')
     print("In ToWord") #############
-    abbrevation = set(['String', 'Boolean', 'Int', 'List'])
+    abbrevation = set(['String', 'Boolean', 'Int', 'List', "Float", "None"])
     header_size = col1_size = col2_size = Pt(12)
     font_style_common = 'Calibri'
     title_size = Pt(18)
@@ -69,6 +69,7 @@ def ToWord(JSON):
     col1_color = RGBColor(0,0,0)
     col2_color = RGBColor(0, 51, 155)
     col2_link_color = RGBColor(26, 0, 225)
+    title_color = reqres_color = RGBColor(15, 71, 97)
 
     doc = docx.Document()
     for title in JSON:
@@ -76,11 +77,13 @@ def ToWord(JSON):
         run.font.bold = False
         run.font.size = title_size
         run.font.name = font_style_common
+        run.font.color.rgb = title_color
         for reqres in JSON[title]:
             run = doc.add_heading("", 3).add_run(reqres)
             run.font.bold = False
             run.font.size = reqres_size
             run.font.name = font_style_common
+            run.font.color.rgb = reqres_color
             for tablename in JSON[title][reqres]:
                 if tablename != '': 
                     run = doc.add_heading("", 4).add_run(tablename)
